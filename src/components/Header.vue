@@ -1,13 +1,8 @@
 <script setup>
-
 </script>
 
 <template>
-  <header>
-    <h1>Contact manager</h1>
+  <header class="py-6">
+    <h1 class="text-4xl">ContactModel manager</h1>
   </header>
 </template>
-
-<style scoped>
-
-</style>

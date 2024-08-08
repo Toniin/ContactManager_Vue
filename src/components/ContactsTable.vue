@@ -1,27 +1,20 @@
-<script setup>
-import {ref, onMounted} from "vue";
+<script setup lang="ts">
+import {ref, watch} from "vue";
 import DataTable from 'primevue/treetable';
 import Column from 'primevue/column';
 import Avatar from 'primevue/avatar';
-import {getContacts} from "@/services/contact.service.js";
+import {useContactsStore} from '@/stores/contacts.store.ts'
+import {contactsTable} from "@/models/Contact.model.ts";
+import ButtonDeleteContact from "@/components/ButtonDeleteContact.vue"
 
-const contacts = ref([])
-let tableKey = 0
+const contacts = ref<contactsTable[]>([])
+const contactsStore = useContactsStore()
 
-onMounted(async () => {
-  const data = await getContacts()
+contactsStore.getContacts()
 
-  data.forEach((contact) => {
-    contacts.value.push({
-      key: `${contact.phoneNumber}_${tableKey++}`,
-      data: {
-        name: contact.name,
-        phoneNumber: contact.phoneNumber,
-      }
-    })
-  })
+watch(contactsStore.contacts, () => {
+  contacts.value = contactsStore.contacts
 })
-
 </script>
 
 <template>
@@ -34,5 +27,10 @@ onMounted(async () => {
     </Column>
     <Column field="phoneNumber" header="Phone number" style="width: 30%"></Column>
     <Column field="name" header="Name"></Column>
+    <Column style="width: 1%">
+      <template #body="slotProps">
+        <ButtonDeleteContact :phoneNumber="slotProps.node.data.phoneNumber"/>
+      </template>
+    </Column>
   </DataTable>
 </template>

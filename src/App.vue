@@ -1,20 +1,13 @@
 <script setup>
 import {RouterView} from "vue-router";
 import Header from "./components/Header.vue";
+import Toast from 'primevue/toast';
 </script>
 
 <template>
   <Header/>
   <main>
     <RouterView/>
+    <Toast position="bottom-right" group="br"/>
   </main>
 </template>
-
-<style scoped>
-:global(body) {
-  font-family: "Lucida Console", "Courier New", monospace;
-
-  display: flex;
-  justify-content: center;
-}
-</style>

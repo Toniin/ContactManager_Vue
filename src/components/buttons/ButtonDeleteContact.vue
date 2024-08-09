@@ -29,6 +29,8 @@ const confirmDelete = (phoneNumber) => {
 const deleteContact = (phoneNumber: string) => {
   contactsStore.deleteContact(phoneNumber)
       .then(() => {
+        contactsStore.getContacts()
+
         toast.add({
           severity: 'success',
           summary: contactsStore.message,
@@ -41,5 +43,5 @@ const deleteContact = (phoneNumber: string) => {
 </script>
 
 <template>
-  <Button icon="pi pi-trash" aria-label="Delete" severity="danger" @click="confirmDelete(phoneNumber)"/>
+  <Button icon="pi pi-trash" aria-label="Delete contact" severity="danger" @click="confirmDelete(phoneNumber)"/>
 </template>

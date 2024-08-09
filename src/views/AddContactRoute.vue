@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import {useRouter} from "vue-router";
-import AddContactForm from "@/components/AddContactForm.vue";
+import AddContactForm from "@/components/forms/AddContactForm.vue";
 
 const router = useRouter()
 

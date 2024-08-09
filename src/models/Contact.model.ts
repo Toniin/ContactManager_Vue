@@ -14,3 +14,7 @@ export const contactSchema = z.object({
 })
 
 export type Contact = z.infer<typeof contactSchema>;
+
+export const editContactFormSchema = z.object({
+    name: z.string({message: "Please enter name"}).min(1, {message: "Please enter name"}),
+})

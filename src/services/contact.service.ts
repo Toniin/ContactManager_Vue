@@ -13,5 +13,9 @@ export const contactService = {
     addContact: (newContact: Contact) => {
         return contactsAPI.post("/add", JSON.stringify(newContact))
             .then(response => response.data)
+    },
+    editContact: (editedContact: Contact) => {
+        return contactsAPI.put(`/update/${editedContact.phoneNumber}`, JSON.stringify(editedContact))
+            .then(response => response.data)
     }
 }

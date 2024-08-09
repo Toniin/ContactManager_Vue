@@ -3,10 +3,15 @@ import ContactsTable from "@/components/ContactsTable.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 import Button from 'primevue/button';
 import SearchBar from "@/components/SearchBar.vue";
+import ButtonRefreshContacts from "@/components/buttons/ButtonRefreshContacts.vue";
+import {useContactsStore} from "@/stores/contacts.store.ts";
+
+const contactsStore = useContactsStore()
 </script>
 
 <template>
-  <SearchBar class="my-8"/>
+  <ButtonRefreshContacts v-if="contactsStore.isSearching" class="my-8"/>
+  <SearchBar v-else class="my-8"/>
   <ContactsTable/>
 
   <div class="fixed bottom-5 right-1/4">

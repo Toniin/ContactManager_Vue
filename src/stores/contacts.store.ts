@@ -7,12 +7,14 @@ export const useContactsStore = defineStore(
     {
         state: () => ({
             contacts: [] as contactsTable[],
-            message: ''
+            message: '',
+            isSearching: false,
         }),
         actions: {
             async getContacts() {
                 const data = await contactService.getContacts()
 
+                this.isSearching = false
                 this.contacts.splice(0, this.contacts.length)
 
                 await data.forEach((contact) => {
@@ -34,6 +36,7 @@ export const useContactsStore = defineStore(
                 const filteredContacts = this.contacts.filter((contact: contactsTable) => contact.data.phoneNumber === data.phoneNumber)
                 const contactFiltered = filteredContacts[0]
 
+                this.isSearching = true
                 this.contacts.splice(0, this.contacts.length)
                 if (contactFiltered.data.name !== data.name) {
                     this.contacts.push({

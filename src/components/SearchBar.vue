@@ -57,7 +57,7 @@ const onSubmit = handleSubmit(onSubmitEditContact);
 </script>
 
 <template>
-  <form class="w-1/3" @submit.prevent="onSubmit" @keydown.enter.prevent="onSubmit">
+  <form class="w-1/3 h-24 flex flex-col justify-end" @submit.prevent="onSubmit" @keydown.enter.prevent="onSubmit">
     <label for="search-contact" class="text-xl">Search contact</label>
     <InputGroup class="mt-3">
       <InputMask id="search-contact" v-model="phoneNumber" v-bind="phoneNumberAttrs" :autoClear="false"

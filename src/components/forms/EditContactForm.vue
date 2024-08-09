@@ -47,7 +47,11 @@ const onSubmitEditContact = async (values) => {
           phoneNumber: '',
         }
 
-        contactsStore.getContacts()
+        if (contactsStore.contacts.length > 1) {
+          contactsStore.getContacts()
+        } else {
+          contactsStore.getContact(editedContact.phoneNumber)
+        }
 
         toast.add({
           severity: 'success',
@@ -63,7 +67,8 @@ const onSubmit = handleSubmit(onSubmitEditContact);
 </script>
 
 <template>
-  <form class="flex flex-col gap-10" @submit.prevent="onSubmit" @keydown.enter.prevent="onSubmit">
+  <form @submit.prevent="onSubmit" @keydown.enter.prevent="onSubmit">
+    <label for="name" hidden="true">Name</label>
     <InputGroup>
       <InputText id="name" v-model="name" v-bind="nameAttrs" autofocus/>
       <Button type="submit" label="Save" :disabled="isSubmitting" :loading="isSubmitting"/>

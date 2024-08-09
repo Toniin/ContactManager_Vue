@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import {contactService} from "../services/contact.service";
-import {v4 as uuid} from "uuid";
 import {contactsTable} from "../models/Contact.model";
 
 export const useContactsStore = defineStore(
@@ -18,13 +17,34 @@ export const useContactsStore = defineStore(
 
                 await data.forEach((contact) => {
                     this.contacts.push({
-                        key: uuid().slice(0, 16),
                         data: {
                             name: contact.name,
                             phoneNumber: contact.phoneNumber,
                         }
                     })
                 })
+            },
+            async getContact(phoneNumber: string) {
+                const data = await contactService.getContact(phoneNumber)
+
+                if (data.isError) {
+                    throw new Error(data.message)
+                }
+
+                const filteredContacts = this.contacts.filter((contact: contactsTable) => contact.data.phoneNumber === data.phoneNumber)
+                const contactFiltered = filteredContacts[0]
+
+                this.contacts.splice(0, this.contacts.length)
+                if (contactFiltered.data.name !== data.name) {
+                    this.contacts.push({
+                        data: {
+                            name: data.name,
+                            phoneNumber: data.phoneNumber,
+                        }
+                    })
+                } else {
+                    this.contacts.push(contactFiltered)
+                }
             },
             async deleteContact(phoneNumber) {
                 const data = await contactService.deleteContact(phoneNumber)

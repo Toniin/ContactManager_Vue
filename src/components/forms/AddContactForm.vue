@@ -38,7 +38,7 @@ const onSubmitNewContact = async (values) => {
     }, 1000)
   })
 
-  if (!phoneValidator_FR(phoneNumber.value)) {
+  if (!phoneValidator_FR(values.phoneNumber)) {
     errors.value.phoneNumber = "Please enter valid phone number"
     return;
   }

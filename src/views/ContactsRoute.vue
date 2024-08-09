@@ -2,9 +2,11 @@
 import ContactsTable from "@/components/ContactsTable.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 import Button from 'primevue/button';
+import SearchBar from "@/components/SearchBar.vue";
 </script>
 
 <template>
+  <SearchBar class="my-8"/>
   <ContactsTable/>
 
   <div class="fixed bottom-5 right-1/4">

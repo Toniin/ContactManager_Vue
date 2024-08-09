@@ -6,6 +6,11 @@ export const contactService = {
         return contactsAPI.get("")
             .then(response => response.data)
     },
+    getContact: (phoneNumber: string) => {
+        return contactsAPI.get(`/find/${phoneNumber}`)
+            .then(response => response.data)
+            .catch(error => error.response.data);
+    },
     deleteContact: (phoneNumber: string) => {
         return contactsAPI.delete(`/delete/${phoneNumber}`)
             .then(response => response.data)

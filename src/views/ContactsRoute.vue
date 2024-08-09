@@ -7,10 +7,14 @@ import Button from 'primevue/button';
 <template>
   <ContactsTable/>
 
+  <div class="fixed bottom-5 right-1/4">
+    <Button as="router-link" icon="pi pi-plus" aria-label="Go to add contact" to="/contacts/add"/>
+  </div>
+
   <ConfirmDialog group="deleteContact">
     <template #container="{ message, acceptCallback, rejectCallback }">
       <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-          <i :class="message.icon" class="!text-5xl"></i>
+        <i :class="message.icon" class="!text-5xl"></i>
         <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
         <p class="mb-0">{{ message.message }}</p>
         <div class="w-full flex justify-end items-center gap-4 mt-6">

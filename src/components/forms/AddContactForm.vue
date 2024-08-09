@@ -5,7 +5,7 @@ import Button from "primevue/button";
 import {useForm} from 'vee-validate';
 import {toTypedSchema} from '@vee-validate/zod';
 import {contactSchema} from "@/models/Contact.model.ts";
-import {phoneValidator_FR} from "@/utils/phone.validator.ts";
+import {phoneValidator_FR_fr} from "@/utils/phone.validator.ts";
 import {useContactsStore} from "@/stores/contacts.store.ts";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from 'vue-router'
@@ -38,7 +38,7 @@ const onSubmitNewContact = async (values) => {
     }, 1000)
   })
 
-  if (!phoneValidator_FR(values.phoneNumber)) {
+  if (!phoneValidator_FR_fr(values.phoneNumber)) {
     errors.value.phoneNumber = "Please enter valid phone number"
     return;
   }

@@ -8,6 +8,7 @@ import {useContactsStore} from "@/stores/contacts.store.ts";
 import {useToast} from "primevue/usetoast";
 import InputGroup from 'primevue/inputgroup';
 import {useEditContactStore} from "@/stores/editContact.store.ts";
+import {phoneFormatInternational_FR_fr} from "@/utils/phone.validator.ts";
 
 const contactsStore = useContactsStore()
 const toast = useToast();
@@ -27,6 +28,15 @@ const {
 const [name, nameAttrs] = defineField('name');
 
 const onSubmitEditContact = async (values) => {
+  if (editContact.contact.name === values.name) {
+    editContact.isEditing = false
+    editContact.contact = {
+      name: '',
+      phoneNumber: '',
+    }
+    return;
+  }
+
   // Promise of 1s to show the loading button when form is submitting
   await new Promise((resolve) => {
     return setTimeout(() => {
@@ -36,7 +46,7 @@ const onSubmitEditContact = async (values) => {
 
   const editedContact = {
     name: values.name,
-    phoneNumber: editContact.contact.phoneNumber,
+    phoneNumber: phoneFormatInternational_FR_fr(editContact.contact.phoneNumber),
   }
 
   contactsStore.editContact(editedContact)

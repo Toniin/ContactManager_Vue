@@ -5,7 +5,7 @@ import {toTypedSchema} from '@vee-validate/zod';
 import {searchContactFormSchema} from "@/models/Contact.model.ts";
 import {useContactsStore} from "@/stores/contacts.store.ts";
 import InputMask from "primevue/inputmask";
-import {phoneValidator_FR} from "@/utils/phone.validator.ts";
+import {phoneValidator_FR_fr} from "@/utils/phone.validator.ts";
 import {reactive} from "vue";
 import InputGroup from 'primevue/inputgroup';
 
@@ -30,7 +30,7 @@ const {
 const [phoneNumber, phoneNumberAttrs] = defineField('phoneNumber');
 
 const onSubmitEditContact = async ({phoneNumber}) => {
-  if (!phoneValidator_FR(phoneNumber)) {
+  if (!phoneValidator_FR_fr(phoneNumber)) {
     return;
   }
 
@@ -67,7 +67,7 @@ const onSubmit = handleSubmit(onSubmitEditContact);
                  autofocus/>
 
       <Button type="submit" icon="pi pi-search" aria-label="Search contact"
-              :disabled="!phoneValidator_FR(phoneNumber)|| isSubmitting"
+              :disabled="!phoneValidator_FR_fr(phoneNumber)|| isSubmitting"
               :loading="isSubmitting"/>
     </InputGroup>
     <small v-if="errorForm.isError" id="phone-error" class="text-red-500">{{ errorForm.message }}</small>

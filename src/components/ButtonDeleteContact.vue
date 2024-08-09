@@ -9,7 +9,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 defineProps({
-  phoneNumber: Number
+  phoneNumber: String
 })
 
 const confirmDelete = (phoneNumber) => {
@@ -26,16 +26,17 @@ const confirmDelete = (phoneNumber) => {
   });
 };
 
-const deleteContact = (phoneNumber: number) => {
+const deleteContact = (phoneNumber: string) => {
   contactsStore.deleteContact(phoneNumber)
-
-  toast.add({
-    severity: 'success',
-    summary: 'Confirmed',
-    detail: `Contact with phone ${phoneNumber} is deleted`,
-    group: 'br',
-    life: 3000
-  });
+      .then(() => {
+        toast.add({
+          severity: 'success',
+          summary: contactsStore.message,
+          detail: `Contact with phone ${phoneNumber} is deleted`,
+          group: 'br',
+          life: 3000
+        });
+      })
 }
 </script>
 

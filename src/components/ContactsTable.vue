@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import DataTable from 'primevue/treetable';
 import Column from 'primevue/column';
 import Avatar from 'primevue/avatar';

@@ -36,5 +36,9 @@ export const useContactsStore = defineStore(
                     this.contacts.push(contact)
                 })
             },
+            async addContact(newContact) {
+                const data = await contactService.addContact(newContact)
+                this.message = data.message
+            },
         },
     })

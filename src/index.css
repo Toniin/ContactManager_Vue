@@ -8,3 +8,7 @@ body {
     display: flex;
     justify-content: center;
 }
+
+#app {
+    width: 50vw;
+}

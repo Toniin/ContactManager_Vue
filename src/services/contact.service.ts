@@ -1,4 +1,4 @@
-import {contactsAPI} from "@/axios.vue";
+import {contactsAPI} from "@/utils/axios.vue";
 import {Contact} from "../models/Contact.model";
 import {phoneFormatInternational_FR_fr, phoneFormatLocal_FR_fr} from "../utils/phone.validator";
 

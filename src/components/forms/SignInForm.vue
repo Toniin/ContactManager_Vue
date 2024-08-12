@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-import RadioButton from 'primevue/radiobutton';
 import Button from "primevue/button";
 import {useForm} from 'vee-validate';
 import {toTypedSchema} from '@vee-validate/zod';
-import {signUpFormSchema} from "@/models/User.model.ts";
+import {signInFormSchema, User} from "@/models/User.model.ts";
 import {useUserStore} from "@/stores/user.store.ts";
-import {useToast} from "primevue/usetoast";
 import {useRouter} from 'vue-router'
 import {reactive} from "vue";
 
@@ -16,7 +14,6 @@ const errorForm = reactive({
   isError: false,
   message: ""
 })
-const toast = useToast();
 const router = useRouter()
 
 const {
@@ -26,17 +23,15 @@ const {
   isSubmitting,
   resetForm
 } = useForm({
-  validationSchema: toTypedSchema(signUpFormSchema),
+  validationSchema: toTypedSchema(signInFormSchema),
   initialValues: {
     username: '',
     password: '',
-    role: 'USER'
   },
 });
 
 const [username, usernameAttrs] = defineField('username');
 const [password, passwordAttrs] = defineField('password');
-const [role, roleAttrs] = defineField('role');
 
 const onSubmitNewUser = async (values) => {
   // Promise of 1s to show the loading button when form is submitting
@@ -46,21 +41,16 @@ const onSubmitNewUser = async (values) => {
     }, 1000)
   })
 
-  userStore.signUp(values)
-      .then(() => {
+  userStore.signIn(values)
+      .then((data) => {
+        const token = data.token
+        localStorage.setItem("Token", token);
+
         errorForm.isError = false
         errorForm.message = ""
         resetForm()
 
-        toast.add({
-          severity: 'success',
-          summary: "User sign up successfully",
-          detail: `${values.username} is sign up with role : ${values.role}`,
-          group: 'br',
-          life: 3000
-        });
-
-        router.push('/sign-in');
+        router.push('/contacts');
       })
       .catch(error => {
         errorForm.isError = true
@@ -85,22 +75,8 @@ const onSubmit = handleSubmit(onSubmitNewUser);
       <small v-if="Boolean(errors.password)" id="password-error" class="text-red-500">{{ errors.password }}</small>
     </div>
 
-    <div class="flex flex-col flex-wrap gap-2">
-      <label for="password">Your role</label>
-      <div class="flex flex-wrap gap-4">
-        <div class="flex items-center">
-          <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-user" name="role-user" value="USER"/>
-          <label for="role-user" class="ml-2">USER</label>
-        </div>
-        <div class="flex items-center">
-          <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-admin" name="role-admin" value="ADMIN"/>
-          <label for="role-admin" class="ml-2">ADMIN</label>
-        </div>
-      </div>
-    </div>
-
     <small v-if="errorForm.isError" id="phone-error" class="text-red-500">{{ errorForm.message }}</small>
 
-    <Button type="submit" label="Sign up" :disabled="isSubmitting" :loading="isSubmitting"/>
+    <Button type="submit" label="Sign in" :disabled="isSubmitting" :loading="isSubmitting"/>
   </form>
 </template>

@@ -55,6 +55,14 @@ const onSubmitNewContact = async (values) => {
 
         router.push('/contacts');
       })
+      .catch((error) => {
+        toast.add({
+          severity: 'error',
+          summary: "You do not have permission",
+          group: 'br',
+          life: 3000
+        });
+      })
 }
 
 const onSubmit = handleSubmit(onSubmitNewContact);

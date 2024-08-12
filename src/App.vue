@@ -6,7 +6,7 @@ import Toast from 'primevue/toast';
 
 <template>
   <Header/>
-  <main>
+  <main class="h-3/4">
     <RouterView/>
     <Toast position="bottom-right" group="br"/>
   </main>

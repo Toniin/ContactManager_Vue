@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {userService} from "@/services/user.service.ts";
-import {UserSignIn} from "@/models/User.model.ts";
+import {UserSignIn, UserSignUp} from "@/models/User.model.ts";
 
 export const useUserStore = defineStore(
     'user',
@@ -9,13 +9,30 @@ export const useUserStore = defineStore(
             username: "",
             isSignIn: false
         }),
+        persist: true,
         actions: {
-            async addNewUser(newUser: UserSignIn) {
-                const data = await userService.addNewUser(newUser)
+            async signUp(newUser: UserSignUp) {
+                const data = await userService.signUp(newUser)
 
                 if (data.isError) {
                     throw new Error(data.message)
                 }
+            },
+            async signIn(user: UserSignIn) {
+                const data = await userService.signIn(user)
+
+                if (data.isError) {
+                    throw new Error(data.message)
+                }
+
+                this.username = data.user
+                this.isSignIn = true
+
+                return data
+            },
+            async signOut() {
+                this.username = ""
+                this.isSignIn = false
             },
         },
     })

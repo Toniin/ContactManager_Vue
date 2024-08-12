@@ -46,9 +46,7 @@ const onSubmitNewUser = async (values) => {
     }, 1000)
   })
 
-  console.log(values)
-
-  userStore.addNewUser(values)
+  userStore.signUp(values)
       .then(() => {
         errorForm.isError = false
         errorForm.message = ""
@@ -62,7 +60,7 @@ const onSubmitNewUser = async (values) => {
           life: 3000
         });
 
-        // router.push('/sign-in');
+        router.push('/sign-in');
       })
       .catch(error => {
         errorForm.isError = true
@@ -76,35 +74,30 @@ const onSubmit = handleSubmit(onSubmitNewUser);
 <template>
   <form class="flex flex-col gap-10" @submit.prevent="onSubmit" @keydown.enter.prevent="onSubmit">
     <div class="flex flex-col gap-2">
-      <label for="name">Name</label>
-      <InputText id="name" v-model="username" v-bind="usernameAttrs" autofocus :invalid="Boolean(errors.username)"/>
-      <small v-if="Boolean(errors.username)" id="name-error" class="text-red-500">{{ errors.username }}</small>
+      <label for="username">Username</label>
+      <InputText id="username" v-model="username" v-bind="usernameAttrs" autofocus :invalid="Boolean(errors.username)"/>
+      <small v-if="Boolean(errors.username)" id="username-error" class="text-red-500">{{ errors.username }}</small>
     </div>
 
     <div class="flex flex-col gap-2">
-      <Password v-model="password" v-bind="passwordAttrs" toggleMask :invalid="Boolean(errors.password)"/>
-      <small v-if="Boolean(errors.password)" id="name-error" class="text-red-500">{{ errors.password }}</small>
+      <label for="password">Password</label>
+      <Password id="password" v-model="password" v-bind="passwordAttrs" toggleMask :invalid="Boolean(errors.password)"/>
+      <small v-if="Boolean(errors.password)" id="password-error" class="text-red-500">{{ errors.password }}</small>
     </div>
 
-    <div class="flex flex-wrap gap-4">
-      <div class="flex items-center">
-        <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-user" name="role-user" value="USER"/>
-        <label for="role-user" class="ml-2">USER</label>
-      </div>
-      <div class="flex items-center">
-        <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-admin" name="role-admin" value="ADMIN"/>
-        <label for="role-admin" class="ml-2">ADMIN</label>
+    <div class="flex flex-col flex-wrap gap-2">
+      <label for="password">Your role</label>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center">
+          <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-user" name="role-user" value="USER"/>
+          <label for="role-user" class="ml-2">USER</label>
+        </div>
+        <div class="flex items-center">
+          <RadioButton v-model="role" v-bind="roleAttrs" inputId="role-admin" name="role-admin" value="ADMIN"/>
+          <label for="role-admin" class="ml-2">ADMIN</label>
+        </div>
       </div>
     </div>
-
-    <!--    <div class="flex flex-col gap-2" @keyup.enter="onSubmit">-->
-    <!--      <label for="phoneNumber">Phone number</label>-->
-    <!--      <InputMask id="phoneNumber" v-model="phoneNumber" v-bind="phoneNumberAttrs" :autoClear="false"-->
-    <!--                 mask="(+33)9 99 99 99 99"-->
-    <!--                 placeholder="(+33)1 23 45 67 89"-->
-    <!--                 fluid :invalid="Boolean(errors.phoneNumber)"/>-->
-    <!--      <small v-if="Boolean(errors.phoneNumber)" id="phone-error" class="text-red-500">{{ errors.phoneNumber }}</small>-->
-    <!--    </div>-->
 
     <small v-if="errorForm.isError" id="phone-error" class="text-red-500">{{ errorForm.message }}</small>
 

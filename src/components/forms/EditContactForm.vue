@@ -71,6 +71,14 @@ const onSubmitEditContact = async (values) => {
           life: 3000
         });
       })
+      .catch((error) => {
+        toast.add({
+          severity: 'error',
+          summary: "You do not have permission",
+          group: 'br',
+          life: 3000
+        });
+      })
 }
 
 const onSubmit = handleSubmit(onSubmitEditContact);

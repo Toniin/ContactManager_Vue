@@ -38,7 +38,7 @@ watch(contactsStore.contacts, () => {
         {{ slotProps.node.data.name }}
       </template>
     </Column>
-    <Column class="w-0" #body="slotProps">
+    <Column class="w-0" header="Actions" #body="slotProps">
       <ButtonEditContact class="mr-2" :name="slotProps.node.data.name" :phoneNumber="slotProps.node.data.phoneNumber"/>
       <ButtonDeleteContact :phoneNumber="slotProps.node.data.phoneNumber"/>
     </Column>

@@ -7,7 +7,7 @@ export const userSchema = z.object({
     isSignIn: z.boolean(),
 })
 
-export type User = z.infer<typeof signInFormSchema>;
+export type User = z.infer<typeof userSchema>;
 
 export const signInFormSchema = z.object({
     username: z.string().min(1, {

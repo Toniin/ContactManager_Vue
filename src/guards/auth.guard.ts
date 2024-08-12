@@ -1,30 +1,28 @@
-<script setup lang="ts">
-import {useRouter} from "vue-router";
 import {useUserStore} from "@/stores/user.store.ts";
+import router from "@/router.ts";
 
-const router = useRouter()
-const userStore = useUserStore()
+export const authGuard = (router) => {
+    router.beforeEach((to, from, next) => {
+            const userStore = useUserStore()
+            const isProtectedRoutes = to.meta.requiresAuth
+            const isPublicRoutes = !to.meta.requiresAuth
+            const isNotFound = to.name === "page-not-found"
 
-router.beforeEach((to) => {
-      const userStore = useUserStore()
-      const isProtectedRoutes = to.meta.requiresAuth
-      const isPublicRoutes = !to.meta.requiresAuth
+            if (isProtectedRoutes) {
+                if (userStore.isSignIn) {
+                    next()
+                } else {
+                    router.push("/sign-in")
+                }
+            }
 
-      if (isProtectedRoutes) {
-        if (userStore.isSignIn) {
-          return true
-        } else {
-          router.push("/sign-in")
+            if (isPublicRoutes) {
+                if (userStore.isSignIn && !isNotFound) {
+                    router.push("/contacts")
+                } else {
+                    next()
+                }
+            }
         }
-      }
-
-      if (isPublicRoutes) {
-        if (userStore.isSignIn) {
-          return router.push("/contacts")
-        } else {
-          return true
-        }
-      }
-    }
-)
-</script>
+    )
+}

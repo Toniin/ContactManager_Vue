@@ -1,29 +1,35 @@
-# contact-manager_vue
+# Contact manager (Vue)
+Web app in Vuejs
 
-This template should help get you started developing with Vue 3 in Vite.
+## Clone the application
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+git clone https://github.com/Toniin/ContactManager_Vue.git
 ```
 
-### Compile and Hot-Reload for Development
+## Put your environment variables (.env)
 
-```sh
+- **MY_APP_API_URL**: Url/Ip adress of the backend API \
+Backend api suggestion: <a href="https://hub.docker.com/r/toniin/api-contact-manager" target="_blank">toniin/api-contact-manager</a>
+
+## Install dependencies using npm
+
+```bash
+npm run install
+```
+
+## Build and run the app using npm
+
+```bash
+npm run build
+npm run preview
+```
+The app will start running at <http://localhost:4173>.
+
+Alternatively, you can run the app without build it using -
+
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+The app will start running at <http://localhost:5173>.

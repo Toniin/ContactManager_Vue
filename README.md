@@ -1,6 +1,8 @@
 # Contact manager (Vue)
 Web app in Vuejs
 
+Docker image of the project : <a href="https://hub.docker.com/r/toniin/contact-manager-vue" target="_blank">toniin/contact-manager-vue</a>
+
 ## Clone the application
 
 ```bash

@@ -31,5 +31,4 @@ Alternatively, you can run the app without build it using -
 ```bash
 npm run dev
 ```
-
 The app will start running at <http://localhost:5173>.

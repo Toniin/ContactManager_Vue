@@ -17,7 +17,7 @@ Backend api suggestion: <a href="https://hub.docker.com/r/toniin/api-contact-man
 ## Install dependencies using npm
 
 ```bash
-npm run install
+npm install
 ```
 
 ## Build and run the app using npm
